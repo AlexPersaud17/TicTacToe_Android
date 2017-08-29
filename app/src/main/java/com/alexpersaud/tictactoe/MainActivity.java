@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
     // 0 = blue player, 1 = red player
     int activePlayer = 0;
 
+
     // 2 = unplayed
     int[] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
 
@@ -28,19 +29,23 @@ public class MainActivity extends AppCompatActivity {
     public void dropIn(View view){
 
         ImageView counter = (ImageView) view;
+        ImageView playerTurn = (ImageView) findViewById(R.id.playerTurn);
+
         int tappedCounter = Integer.parseInt(counter.getTag().toString());
 
         if(gameState[tappedCounter] == 2 && gameIsActive){
             gameState[tappedCounter] = activePlayer;
             counter.setTranslationY(-1000f);
             if(activePlayer == 0){
+                playerTurn.setImageResource(R.drawable.red_chip);
                 counter.setImageResource(R.drawable.blue_chip);
                 activePlayer = 1;
             } else{
+                playerTurn.setImageResource(R.drawable.blue_chip);
                 counter.setImageResource(R.drawable.red_chip);
                 activePlayer = 0;
             }
-            counter.animate().translationYBy(1000f).setDuration(700);
+            counter.animate().translationYBy(1000f).setDuration(350);
 
             for(int[] winningPosition : winningPositions){
                 if(gameState[winningPosition[0]] == gameState[winningPosition[1]] &&
@@ -81,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.playAgainLayout);
         layout.setVisibility(View.INVISIBLE);
         activePlayer = 0;
+        ImageView playerTurn = (ImageView) findViewById(R.id.playerTurn);
+        playerTurn.setImageResource(R.drawable.blue_chip);
 
         for(int i = 0; i < gameState.length; i++){
             gameState[i] = 2;
