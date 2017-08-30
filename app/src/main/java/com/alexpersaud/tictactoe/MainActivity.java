@@ -15,7 +15,7 @@ import static com.alexpersaud.tictactoe.R.id.winnerMessage;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean gameIsActive = true;
+    boolean gameIsActive = false;
 
     // 0 = blue player, 1 = red player
     int activePlayer = 0;
@@ -25,6 +25,31 @@ public class MainActivity extends AppCompatActivity {
     int[] gameState = {2, 2, 2, 2, 2, 2, 2, 2, 2};
 
     int[][] winningPositions = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+
+    public void startGame(View view){
+        LinearLayout layout = (LinearLayout) findViewById(R.id.welcomeLayout);
+        layout.setVisibility(View.INVISIBLE);
+        ImageView playerTurn = (ImageView) findViewById(R.id.playerTurn);
+        playerTurn.setImageResource(R.drawable.blue_chip);
+        gameIsActive = true;
+        activePlayer = 0;
+
+    }
+
+    public void goHome(View view){
+        LinearLayout layout = (LinearLayout) findViewById(R.id.welcomeLayout);
+        layout.setVisibility(View.VISIBLE);
+        gameIsActive = false;
+
+        for(int i = 0; i < gameState.length; i++){
+            gameState[i] = 2;
+        }
+
+        GridLayout gridLayout = (GridLayout) findViewById(R.id.gameBoardLayout);
+        for(int i = 0; i < gridLayout.getChildCount(); i++){
+            ((ImageView) gridLayout.getChildAt(i)).setImageResource(0);
+        }
+    }
 
     public void dropIn(View view){
 
