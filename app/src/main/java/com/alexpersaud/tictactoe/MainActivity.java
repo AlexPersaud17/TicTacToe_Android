@@ -1,6 +1,8 @@
 package com.alexpersaud.tictactoe;
 
+import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
 
     boolean gameIsActive = false;
 
-    // 0 = blue player, 1 = red player
+    // 0 = yellow player, 1 = red player
     int activePlayer = 0;
 
 
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout) findViewById(R.id.welcomeLayout);
         layout.setVisibility(View.INVISIBLE);
         ImageView playerTurn = (ImageView) findViewById(R.id.playerTurn);
-        playerTurn.setImageResource(R.drawable.blue_chip);
+        playerTurn.setImageResource(R.drawable.yellow);
         gameIsActive = true;
         activePlayer = 0;
 
@@ -62,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
             gameState[tappedCounter] = activePlayer;
             counter.setTranslationY(-1000f);
             if(activePlayer == 0){
-                playerTurn.setImageResource(R.drawable.red_chip);
-                counter.setImageResource(R.drawable.blue_chip);
+                playerTurn.setImageResource(R.drawable.red);
+                counter.setImageResource(R.drawable.yellow);
                 activePlayer = 1;
             } else{
-                playerTurn.setImageResource(R.drawable.blue_chip);
-                counter.setImageResource(R.drawable.red_chip);
+                playerTurn.setImageResource(R.drawable.yellow);
+                counter.setImageResource(R.drawable.red);
                 activePlayer = 0;
             }
             counter.animate().translationYBy(1000f).setDuration(350);
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     gameIsActive = false;
                     String winner;
                     if(gameState[winningPosition[0]] == 0){
-                        winner = "Blue";
+                        winner = "Yellow";
                     }else{
                         winner = "Red";
                     }
@@ -112,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         layout.setVisibility(View.INVISIBLE);
         activePlayer = 0;
         ImageView playerTurn = (ImageView) findViewById(R.id.playerTurn);
-        playerTurn.setImageResource(R.drawable.blue_chip);
+        playerTurn.setImageResource(R.drawable.yellow);
 
         for(int i = 0; i < gameState.length; i++){
             gameState[i] = 2;
@@ -122,6 +124,12 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < gridLayout.getChildCount(); i++){
             ((ImageView) gridLayout.getChildAt(i)).setImageResource(0);
         }
+    }
+
+    public void openGit(View view) {
+        Uri uri = Uri.parse("https://github.com/AlexPersaud17/TicTacToe_Android");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
     }
 
     @Override
